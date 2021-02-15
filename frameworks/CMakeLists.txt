@@ -1,0 +1,3 @@
+add_subdirectory(CoreFoundation.framework)
+add_subdirectory(Foundation.framework)
+add_subdirectory(Metal.framework)

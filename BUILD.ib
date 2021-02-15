@@ -1,0 +1,113 @@
+source_set("objc_rt") {
+    patt = [
+        "usr/src/objc/**.c",
+        "usr/src/objc/**.mm",
+        "usr/src/objc/**.m",
+        "usr/src/objc/**.cc",
+        "usr/src/objc/**.cc",
+        "usr/src/objc/**.h",
+        "usr/include/objc/**.h"
+    ]
+    excludes = []
+    
+    match(target_os) {
+        "windows" => {
+            excludes += "usr/src/objc/gc_boehm.c"
+            excludes += "usr/src/objc/objcxx_eh.cc"
+            excludes += "usr/src/objc/eh_personality.c"
+            excludes += "usr/src/objc/eh_trampoline.cc"
+            excludes += "usr/src/objc/legacy_malloc.c"
+        }
+    }
+    sources = list_files(patt, excludes)
+    include_dirs = [ "usr/include", "usr/src/objc" ]
+    visibility = [ ":*" ]
+    defines = [
+        "__OBJC_RUNTIME_INTERNAL__=1",
+        "GNUSTEP", 
+        "TYPE_DEPENDENT_DISPATCH", 
+        "objc_EXPORTS=1", 
+        "GC_DEBUG", 
+        "NO_LEGACY"
+    ]
+    match(target_os) {
+        "windows" => {
+            sources += [ 
+                "usr/src/objc/objc_msgSend.S",
+                "usr/src/objc/block_trampolines.S"
+            ]
+            defines += "_WIN32"
+        }
+    }
+    
+}
+
+shared_library("libobjc") {
+    force_clang = true
+    deps = [ ":objc_rt" ]
+}
+
+source_set("cf_srcs") {
+    include_dirs = [ "frameworks/CoreFoundation.framework/Headers" ]
+    patt = [
+        "frameworks/CoreFoundation.framework/Headers/**.h",
+        "frameworks/CoreFoundation.framework/Sources/**.c"
+    ]
+    sources = list_files(patt)
+}
+
+shared_library("CoreFoundation") {
+    force_clang = true
+    deps = [ ":cf_srcs" ]
+}
+
+source_set("fd_srcs") {
+    include_dirs = [ "frameworks/Foundation.framework/Headers" ]
+    patt = [
+        "frameworks/Foundation.framework/Headers/**.h",
+        "frameworks/Foundation.framework/Sources/**.c",
+        "frameworks/Foundation.framework/Sources/**.m",
+        "frameworks/Foundation.framework/Sources/**.mm"
+    ]
+    sources = list_files(patt)
+}
+
+shared_library("Foundation") {
+    force_clang = true
+    deps = [ ":fd_srcs" ]
+}
+
+source_set("metal_srcs") {
+    include_dirs = [ "frameworks/Metal.framework/Headers" ]
+    patt = [
+        "frameworks/Metal.framework/Headers/**.h",
+        "frameworks/Metal.framework/Sources/**.c",
+        "frameworks/Metal.framework/Sources/**.m",
+        "frameworks/Metal.framework/Sources/**.mm"
+    ]
+    sources = list_files(patt)
+}
+
+shared_library("Metal") {
+    force_clang = true
+    deps = [ ":metal_srcs" ]
+}
+
+executable("testARC") {
+    force_clang = true
+    deps = [ ":libobjc" ]
+    sources = [
+        "tests/objc2/Test.h",
+        "tests/objc2/Test.m",
+        "tests/objc2/FastARC.m"
+    ]
+}
+executable("testMsgInterpose") {
+    force_clang = true
+    deps = [ ":libobjc" ]
+    sources = [
+        "tests/objc2/Test.h",
+        "tests/objc2/Test.m",
+        "tests/objc2/msgInterpose.m"
+    ]
+}

@@ -1,0 +1,3 @@
+module Metal [extern_c] [system] {
+  header "MetalHeader.h"
+}

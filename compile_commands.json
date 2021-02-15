@@ -1,0 +1,17 @@
+[
+    {
+      "directory": "C:\\Users\\Administrator\\Desktop\\swift-metal-win32",
+      "command": "C:\\PROGRA~1\\LLVM\\bin\\clang.exe -x objective-c++ -fblocks C:/Users/Administrator/Desktop/swift-metal-win32/frameworks/Metal.framework/Sources/Metal.mm -IC:\\Users\\Administrator\\Desktop\\swift-metal-win32\\usr\\include -FC:\\Users\\Administrator\\Desktop\\swift-metal-win32\\frameworks -DTARGET_OS_OSX=1",
+      "file": "C:/Users/Administrator/Desktop/swift-metal-win32/frameworks/Metal.framework/Sources/Metal.mm"
+    },
+    {
+      "directory": "C:\\Users\\Administrator\\Desktop\\swift-metal-win32",
+      "command": "C:\\PROGRA~1\\LLVM\\bin\\clang.exe -x objective-c++ -fblocks C:/Users/Administrator/Desktop/swift-metal-win32/frameworks/Metal.framework/Sources/MetalDevice.mm -IC:\\Users\\Administrator\\Desktop\\swift-metal-win32\\usr\\include -FC:\\Users\\Administrator\\Desktop\\swift-metal-win32\\frameworks -DTARGET_OS_OSX=1",
+      "file": "C:/Users/Administrator/Desktop/swift-metal-win32/frameworks/Metal.framework/Sources/MetalDevice.mm"
+    },
+    {
+      "directory": "C:\\Users\\Administrator\\Desktop\\swift-metal-win32",
+      "command": "C:\\PROGRA~1\\LLVM\\bin\\clang.exe -x objective-c++ -fblocks C:/Users/Administrator/Desktop/swift-metal-win32/frameworks/Metal.framework/Sources/MTLResource.mm -IC:\\Users\\Administrator\\Desktop\\swift-metal-win32\\usr\\include -FC:\\Users\\Administrator\\Desktop\\swift-metal-win32\\frameworks -DTARGET_OS_OSX=1",
+      "file": "C:/Users/Administrator/Desktop/swift-metal-win32/frameworks/Metal.framework/Sources/MTLResource.mm"
+    }
+]
